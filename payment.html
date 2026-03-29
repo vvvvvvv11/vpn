@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оплата VPN</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    background: #0f0f1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+
+  .card {
+    background: #1a1a2e;
+    border: 1px solid #2a2a4a;
+    border-radius: 20px;
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .logo-text { font-size: 20px; font-weight: 700; color: #fff; }
+  .logo-sub  { font-size: 12px; color: #888; margin-top: 1px; }
+
+  h2 {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .subtitle { color: #888; font-size: 14px; margin-bottom: 28px; }
+
+  .plans { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+
+  .plan {
+    border: 2px solid #2a2a4a;
+    border-radius: 14px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .plan:hover { border-color: #6c63ff44; background: #6c63ff0a; }
+  .plan.selected {
+    border-color: #6c63ff;
+    background: #6c63ff15;
+  }
+  .plan-left { display: flex; align-items: center; gap: 14px; }
+  .plan-radio {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid #444;
+    transition: all .2s;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .plan.selected .plan-radio {
+    border-color: #6c63ff;
+    background: #6c63ff;
+  }
+  .plan.selected .plan-radio::after {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #fff;
+  }
+  .plan-name { color: #fff; font-weight: 600; font-size: 15px; }
+  .plan-desc { color: #888; font-size: 12px; margin-top: 2px; }
+  .plan-price {
+    color: #a78bfa;
+    font-weight: 700;
+    font-size: 17px;
+    white-space: nowrap;
+  }
+  .plan-badge {
+    position: absolute;
+    top: -10px; right: 14px;
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+
+  .divider { border: none; border-top: 1px solid #2a2a4a; margin-bottom: 24px; }
+
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .total-label { color: #888; font-size: 14px; }
+  .total-amount { color: #fff; font-size: 22px; font-weight: 700; }
+
+  .btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    color: #fff;
+    letter-spacing: .3px;
+  }
+  .btn:hover { opacity: .9; transform: translateY(-1px); box-shadow: 0 8px 24px #6c63ff55; }
+  .btn:active { transform: translateY(0); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .secure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+    color: #555;
+    font-size: 12px;
+  }
+
+  /* ФОРМА ЮМАНИ — скрыта */
+  #autoYooForm { display: none; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <div class="logo-icon">🔒</div>
+    <div>
+      <div class="logo-text">VPN Pro</div>
+      <div class="logo-sub">Быстрый и надёжный</div>
+    </div>
+  </div>
+
+  <h2>Выберите тариф</h2>
+  <p class="subtitle">Работает на всех операторах · iOS · Android</p>
+
+  <div class="plans">
+
+    <div class="plan" data-plan="1m" data-price="199" data-label="1 месяц" onclick="selectPlan(this)">
+      <div class="plan-left">
+        <div class="plan-radio"></div>
+        <div>
+          <div class="plan-name">1 месяц</div>
+          <div class="plan-desc">199 ₽ / мес</div>
+        </div>
+      </div>
+      <div class="plan-price">199 ₽</div>
+    </div>
+
+    <div class="plan" data-plan="3m" data-price="499" data-label="3 месяца" onclick="selectPlan(this)">
+      <div class="plan-badge">−17%</div>
+      <div class="plan-left">
+        <div class="plan-radio"></div>
+        <div>
+          <div class="plan-name">3 месяца</div>
+          <div class="plan-desc">166 ₽ / мес</div>
+        </div>
+      </div>
+      <div class="plan-price">499 ₽</div>
+    </div>
+
+    <div class="plan" data-plan="1y" data-price="1490" data-label="1 год" onclick="selectPlan(this)">
+      <div class="plan-badge">−38%</div>
+      <div class="plan-left">
+        <div class="plan-radio"></div>
+        <div>
+          <div class="plan-name">1 год</div>
+          <div class="plan-desc">124 ₽ / мес</div>
+        </div>
+      </div>
+      <div class="plan-price">1490 ₽</div>
+    </div>
+
+  </div>
+
+  <hr class="divider">
+
+  <div class="total-row">
+    <span class="total-label">К оплате</span>
+    <span class="total-amount" id="totalAmount">—</span>
+  </div>
+
+  <button class="btn" id="payBtn" disabled onclick="submitPayment()">
+    Оплатить через ЮMoney
+  </button>
+
+  <div class="secure">
+    🔐 Безопасная оплата · ЮMoney
+  </div>
+</div>
+
+<!-- ФОРМА ОПЛАТЫ ЮМАНИ -->
+<form id="autoYooForm" method="POST" action="https://yoomoney.ru/quickpay/confirm" target="_blank">
+  <input type="hidden" name="receiver"      value="4100119441681698">
+  <input type="hidden" name="quickpay-form" value="shop">
+  <input type="hidden" name="targets"       id="yooTargets" value="">
+  <input type="hidden" name="sum"           id="yooSum"     value="" data-type="number">
+  <input type="hidden" name="label"         id="yooLabel"   value="">
+  <input type="hidden" name="paymentType"   value="AC">
+</form>
+
+<script>
+  let selectedPlan = null;
+
+  function selectPlan(el) {
+    document.querySelectorAll('.plan').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedPlan = {
+      plan:  el.dataset.plan,
+      price: el.dataset.price,
+      label: el.dataset.label
+    };
+    document.getElementById('totalAmount').textContent = selectedPlan.price + ' ₽';
+    document.getElementById('payBtn').disabled = false;
+  }
+
+  function generateLabel(plan) {
+    // Уникальная метка: vpn_PLAN_TIMESTAMP_RANDOM
+    const ts  = Date.now();
+    const rnd = Math.random().toString(36).slice(2, 8);
+    return `vpn_${plan}_${ts}_${rnd}`;
+  }
+
+  function submitPayment() {
+    if (!selectedPlan) return;
+
+    const label = generateLabel(selectedPlan.plan);
+
+    document.getElementById('yooSum').value     = selectedPlan.price;
+    document.getElementById('yooLabel').value   = label;
+    document.getElementById('yooTargets').value = `VPN ${selectedPlan.label}`;
+
+    // Сохраняем label локально чтобы потом передать боту
+    localStorage.setItem('lastPaymentLabel', label);
+    localStorage.setItem('lastPaymentPlan',  selectedPlan.plan);
+
+    document.getElementById('autoYooForm').submit();
+  }
+</script>
+
+</body>
+</html>

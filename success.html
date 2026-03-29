@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оплата прошла — VPN Pro</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    background: #0f0f1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+
+  .card {
+    background: #1a1a2e;
+    border: 1px solid #2a2a4a;
+    border-radius: 20px;
+    padding: 40px 32px;
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+  }
+
+  .check-wrap {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 34px;
+  }
+
+  h1 { color: #fff; font-size: 22px; margin-bottom: 8px; }
+  .sub { color: #888; font-size: 14px; margin-bottom: 32px; line-height: 1.5; }
+
+  .steps {
+    text-align: left;
+    background: #12122a;
+    border: 1px solid #2a2a4a;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 28px;
+  }
+  .steps-title { color: #a78bfa; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px; }
+
+  .step {
+    display: flex; gap: 12px; align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .step:last-child { margin-bottom: 0; }
+  .step-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: #6c63ff22; border: 1px solid #6c63ff55;
+    color: #a78bfa; font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-text { color: #ccc; font-size: 14px; line-height: 1.5; padding-top: 3px; }
+  .step-text b { color: #fff; }
+
+  .os-tabs {
+    display: flex; gap: 8px; margin-bottom: 20px;
+  }
+  .os-tab {
+    flex: 1; padding: 10px;
+    border: 2px solid #2a2a4a;
+    border-radius: 10px;
+    background: none;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .os-tab.active {
+    border-color: #6c63ff;
+    background: #6c63ff15;
+    color: #a78bfa;
+    font-weight: 600;
+  }
+
+  .btn {
+    display: block; width: 100%;
+    padding: 15px;
+    border: none; border-radius: 14px;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+  .btn-secondary {
+    background: #12122a;
+    border: 1px solid #2a2a4a;
+    color: #888;
+  }
+  .btn-secondary:hover { border-color: #6c63ff55; color: #a78bfa; }
+
+  .note { color: #555; font-size: 12px; margin-top: 16px; line-height: 1.5; }
+
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="check-wrap">✅</div>
+  <h1>Скриншот получен!</h1>
+  <p class="sub">Мы проверяем оплату. Обычно это занимает<br>до 10 минут. Конфиг придёт в бот автоматически.</p>
+
+  <!-- Выбор ОС -->
+  <div class="os-tabs">
+    <button class="os-tab active" onclick="setOS('ios', this)">🍎 iPhone</button>
+    <button class="os-tab" onclick="setOS('android', this)">🤖 Android</button>
+  </div>
+
+  <!-- Шаги iOS -->
+  <div class="steps" id="steps-ios">
+    <div class="steps-title">Пока ждёшь — скачай приложение</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Скачай <b>Happ</b> из App Store — это приложение для VPN</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">Открой приложение и нажми <b>«+»</b> в правом верхнем углу</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">Выбери <b>«Import from clipboard»</b> — конфиг придёт в бот</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text">Нажми <b>Connect</b> — VPN готов! 🎉</div>
+    </div>
+    <a href="https://apps.apple.com/app/happ-proxy-utility/id6504287215"
+       class="btn btn-primary" style="margin-top:16px; display:flex; align-items:center; justify-content:center; gap:8px;">
+      🍎 Скачать Happ
+    </a>
+  </div>
+
+  <!-- Шаги Android -->
+  <div class="steps hidden" id="steps-android">
+    <div class="steps-title">Пока ждёшь — скачай приложение</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Скачай <b>v2rayNG</b> из Google Play</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">Открой приложение и нажми <b>«+»</b> в правом верхнем углу</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">Выбери <b>«Import config from clipboard»</b></div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text">Нажми на конфиг → нажми ▶️ внизу — готово! 🎉</div>
+    </div>
+    <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang"
+       class="btn btn-primary" style="margin-top:16px; display:flex; align-items:center; justify-content:center; gap:8px;">
+      🤖 Скачать v2rayNG
+    </a>
+  </div>
+
+  <a href="https://t.me/your_bot" class="btn btn-secondary">
+    ← Вернуться в бот
+  </a>
+
+  <p class="note">Если оплата не подтверждена в течение 30 минут — напишите в поддержку</p>
+</div>
+
+<script>
+  function setOS(os, btn) {
+    document.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('steps-ios').classList.toggle('hidden', os !== 'ios');
+    document.getElementById('steps-android').classList.toggle('hidden', os !== 'android');
+  }
+
+  // Авто-определение ОС
+  const isAndroid = /android/i.test(navigator.userAgent);
+  if (isAndroid) {
+    setOS('android', document.querySelectorAll('.os-tab')[1]);
+  }
+</script>
+</body>
+</html>
